@@ -8,6 +8,9 @@
 
 import Foundation
 
+
+var data = AviatrixData()
+
 func gauges(myPlane : Aviatrix) {
     print("Reading the gauges...")
     print(" ")
@@ -24,9 +27,9 @@ func fly(myPlane : Aviatrix) {
     print("Where would you like to fly to? ")
     print(" ")
     let destinations = myPlane.knownDestinations()
-    
+
     for (index, city) in destinations.enumerated() {
-        let distance = myPlane.distanceTo(target: city)
+        var distance = myPlane.distanceTo(target : city, current : myPlane.location)
         print("\(index): \(city), \(distance) miles")
     }
     
@@ -41,7 +44,7 @@ func fly(myPlane : Aviatrix) {
         
         if fuelCheck(myPlane: myPlane, destination : desiredLocation) {
             myPlane.flyTo(destination: desiredLocation)
-            print("🛬 You've arrived in _________!")
+            print("🛬 You've arrived in \(myPlane.location)!")
             gauges(myPlane: myPlane)
         }
     }
@@ -79,7 +82,7 @@ var plane = Aviatrix(authorName : "MAC")
 print("Welcome to the Aviatrix Flight System by \(plane.author)")
 plane.start()
 
-print("You're currently in Detroit.")
+print("You're currently in __________.")
 
 var command = ""
 
@@ -109,4 +112,4 @@ while command != "q" {
 }
 
 print(" ")
-print("Thanks for flying with _________ airline!")
+print("Thanks for flying with MAC airline!")
